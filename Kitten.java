@@ -69,7 +69,9 @@ public class Kitten extends Actor
   public void readMail()
   {
     for(String item : items){
-    	mailServer.add(new Message(this, null, "need " + item));
+    	if(!myPossessions.contains(item)){
+    		mailServer.add(new Message(this, null, "need " + item));
+    	}
     }
     while(!mailbox.isEmpty()){
     	Message m = mailbox.remove();
