@@ -70,7 +70,7 @@ public class Kitten extends Actor
   {
     for(String item : items){
     	if(!myPossessions.contains(item)){
-    		mailServer.add(new Message(this, null, "need " + item));
+    		announce("need " + item);
     	}
     }
     while(!mailbox.isEmpty()){
@@ -86,16 +86,16 @@ public class Kitten extends Actor
     			if(item.equals(thing)){
     				count++;
     				if(count > 1){
-    					mailServer.add(new Message(this, m.getSender(), "have " + thing));
+    					send(m.getSender(), "have " + thing);
     					break;
     				}
     			}
     		}
     	}
     	else if(type.equals("have") && !myPossessions.contains(thing)){
-    		mailServer.add(new Message(this, m.getSender(), "ship " + thing));
+    		send(m.getSender(), "ship " + thing);
     	}
-    	else if(type.equals("send")){
+    	else if(type.equals("ship")){
     		int count = 0;
     		for(String item : myPossessions){
     			if(item.equals(thing)){

@@ -53,8 +53,6 @@ public class ThreeKittens extends JFrame
         server.dispatch(msg);
       }
 
-      // Collections.shuffle(kittens);
-
       for (Kitten kitten : Kittens)
         kitten.readMail();
     }
