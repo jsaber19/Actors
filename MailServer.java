@@ -12,7 +12,10 @@ public class MailServer extends LinkedList<Message> {
     public void dispatch(Message msg){
         if (msg.getRecipient().equals(null)) {
             for (Actor a : subscribers){
-                a.receive(msg);
+                if(! a.equals(msg.getRecipient())){
+                    a.receive(msg);
+                }
+
             }
         }
 
