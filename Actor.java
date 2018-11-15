@@ -68,8 +68,8 @@ public abstract class Actor
    */
   public void send(Actor recipient, String text)
   {
-    _______________________________________
-    ...
+    Message msg = new Message(this, recipient, text);
+    mailServer.add(msg);
   }
 
   /**
@@ -78,8 +78,8 @@ public abstract class Actor
    */
   public void announce(String text)
   {
-    _______________________________________
-    ...
+    Message msg = new Message(this, null, text);
+    mailServer.add(msg);
   }
 
   /** Compares this Actor to another in alphabetical
