@@ -6,6 +6,7 @@
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Kitten extends Actor
 {
@@ -67,8 +68,49 @@ public class Kitten extends Actor
    */
   public void readMail()
   {
-    _______________________________________
-    ...
+    for(String item : items){
+    	mailServer.add(new Message(this, null, "need " + item));
+    }
+    while(!mailbox.isEmpty()){
+    	Message m = mailbox.remove();
+    	if(m.getText().length() < 5){
+    		continue;
+    	}
+    	String type = m.getText().substring(0, 4);
+    	String thing = m.getText().substring(5);
+    	if(type.equals("need")){
+    		int count = 0;
+    		for(String item : myPossessions){
+    			if(item.equals(thing)){
+    				count++;
+    				if(count > 1){
+    					mailServer.add(new Message(this, m.getSender(), "have " + thing));
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	else if(type.equals("have") && !myPossessions.contains(thing)){
+    		mailServer.add(new Message(this, m.getSender(), "ship " + thing));
+    	}
+    	else if(type.equals("send")){
+    		int count = 0;
+    		for(String item : myPossessions){
+    			if(item.equals(thing)){
+    				count++;
+    				if(count > 1){
+    					if(((Kitten)m.getSender()).receiveItem(this, thing)){
+    						myPossessions.remove(thing);
+    					}
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	if(allSet()){
+    		mailServer.add(new Message(this, null, "thx, all set"));
+    	}
+    }
   }
 
   public String toString()

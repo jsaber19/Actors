@@ -8,9 +8,9 @@ import java.util.LinkedList;
 public abstract class Actor
     implements Comparable<Actor>
 {
-  private String name;
-  private Queue<Message> mailbox;
-  private MailServer mailServer;
+  protected String name;
+  protected Queue<Message> mailbox;
+  protected MailServer mailServer;
 
   public Actor(String nm)
   {
